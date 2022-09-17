@@ -1,21 +1,23 @@
-from django.core.management.base import BaseCommand
+import os
+import random
+import string
+
+from todo import settings
 from users.models import User
+from django.core.management.base import BaseCommand
+from django.utils.crypto import get_random_string
+import sqlite3
 
 
 class Command(BaseCommand):
-    def handle(self, *args, **options):
-        users = User.objects.all()
 
-        for user in users:
-            if user.email == 'dr0nx@yandex.ru' or \
-                    user.email == 'kovbozh@gmail.com' or \
-                    user.email == 'admin@yuga.ru':
-                user.delete()
+    def handle(self, *args, **kwargs):
+        User.objects.all().delete()
 
-        test1 = User(username='ivan', first_name='Иван', last_name='Иванов', email='mail1@mail.ru')
-        test1.save()
-        test2 = User(username='petr', first_name='Петр', last_name='Петров', email='mail2@mail.ru')
-        test2.save()
+        for i in range(3):
+            username = get_random_string(5).lower()
+            email = ''.join(random.choice(string.ascii_letters.lower()) for _ in range(5)) + '@gmail.com'
+            User.objects.create_user(username=username, email=email, password='321')
 
         User.objects.create_superuser(username='dr0n', first_name='Андрей', last_name='Божков',
                                       email='kovbozh@gmail.com', password='321')
