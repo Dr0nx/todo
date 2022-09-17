@@ -18,4 +18,4 @@ class Command(BaseCommand):
         test2.save()
 
         User.objects.create_superuser(username='dr0n', first_name='Андрей', last_name='Божков',
-                                      email='kovbozh@gmail.com', password='1')
+                                      email='kovbozh@gmail.com', password='321')
