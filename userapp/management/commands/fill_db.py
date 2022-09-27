@@ -1,7 +1,7 @@
 import random
 import string
 
-from users.models import User
+from userapp.models import User
 from django.core.management.base import BaseCommand
 
 

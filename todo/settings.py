@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_filters',
-    'users',
+    'userapp',
     'corsheaders',
 ]
 
@@ -122,7 +122,7 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'userapp.User'
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
