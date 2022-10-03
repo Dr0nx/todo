@@ -12,7 +12,7 @@ const MenuItem = () => {
             <Nav className="me-auto">
                 <Nav.Link as={Link} to="/">Пользователи</Nav.Link>
                 <Nav.Link as={Link} to="/projects">Проекты</Nav.Link>
-                <Nav.Link as={Link} to="/todos">Todos</Nav.Link>
+                <Nav.Link as={Link} to="/todos">Todo</Nav.Link>
             </Nav>
         </Container>
     </Navbar>
