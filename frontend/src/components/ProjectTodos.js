@@ -29,7 +29,7 @@ const ProjectTodosList = ({todos}) => {
             <thead key="thead">
                 <tr>
                     <th>
-                        Проект
+                        ID проекта
                     </th>
                     <th>
                         Текст заметки
