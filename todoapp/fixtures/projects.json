@@ -5,7 +5,7 @@
     "fields": {
       "name": "Проект 1",
       "link": "http://127.0.0.1:8000/api/projects/1/",
-      "users": [4]
+      "users": [1, 2, 3, 4, 5]
     }
   },
   {
@@ -14,7 +14,7 @@
     "fields": {
       "name": "Проект 2",
       "link": "http://127.0.0.1:8000/api/projects/2/",
-      "users": [2, 3]
+      "users": [1, 2, 3, 4, 5]
     }
   },
   {
@@ -23,7 +23,7 @@
     "fields": {
       "name": "Проект 3",
       "link": "http://127.0.0.1:8000/api/projects/3/",
-      "users": []
+      "users": [1, 2, 3, 4, 5]
     }
   }
 ]
