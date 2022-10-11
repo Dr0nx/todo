@@ -6,5 +6,5 @@
 [Урок 3. Serializers. Renderers. Routers](https://github.com/Dr0nx/todo/tree/lesson_3/) <br>
 [Урок 4. Views. Filtering. Pagination](https://github.com/Dr0nx/todo/tree/lesson_4/) <br>
 [Урок 5. Routing. SPA](https://github.com/Dr0nx/todo/tree/lesson_5/) <br>
-[Урок 6. Авторизация. Система прав](https://github.com/Dr0nx/todo/tree/lesson_6/)
-[Урок 7. Авторизация на стороне клиента](https://github.com/Dr0nx/todo/tree/lesson_7/)
+[Урок 6. Авторизация. Система прав](https://github.com/Dr0nx/todo/tree/lesson_6/) <br>
+[Урок 7. Авторизация на стороне клиента](https://github.com/Dr0nx/todo/tree/lesson_7/) <br>
