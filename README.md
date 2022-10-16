@@ -9,4 +9,3 @@
 [Урок 6. Авторизация. Система прав](https://github.com/Dr0nx/todo/tree/lesson_6/) <br>
 [Урок 7. Авторизация на стороне клиента](https://github.com/Dr0nx/todo/tree/lesson_7/) <br>
 [Урок 8. Тестирование API. Фабрики данных](https://github.com/Dr0nx/todo/tree/lesson_8/) <br>
-[Урок 9. Система версий API. Документация для API](https://github.com/Dr0nx/todo/tree/lesson_9/) <br>
