@@ -72,8 +72,8 @@ class UpdateProjectForm extends React.Component {
                            value={this.state.link} onChange={(event) => this.handleChange(event)}/>
                 </div>
                 <div className="form-group mt-3">
-                    <label htmlFor="users">Авторы проекта</label>
-                    <select className="form-select" name="users" multiple
+                    <label htmlFor="users">Автор проекта</label>
+                    <select className="form-select" name="users"
                             onChange={(event) => this.handleUsersChange(event)}>
                         {this.props.users.map((user, index) =>
                             <option value={index + 1}>{user.username}</option>
