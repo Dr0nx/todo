@@ -4,14 +4,24 @@ import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import {useState} from "react";
 
-const ProjectItem = ({project, delete_project}) => {
+const ProjectItem = ({project, allUsers, delete_project}) => {
     return (
         <tr>
+            <td>
+                {project.id}
+            </td>
             <td>
                 <Link to={`${project.id}`}>{project.name}</Link>
             </td>
             <td>
                 {project.link}
+            </td>
+            <td>
+                {project.users.map((userId) => {
+                    console.log(allUsers)
+                    let user = allUsers.find(user => user.id === userId)
+                    return user.username + " "
+                })}
             </td>
             <td>
                 <Button onClick={() => delete_project(project.id)}
@@ -41,10 +51,16 @@ const ProjectList = ({projects, users, delete_project}) => {
                 <thead key="thead">
                 <tr>
                     <th>
+                        ID проекта
+                    </th>
+                    <th>
                         Название проекта
                     </th>
                     <th>
                         Ссылка на репозиторий
+                    </th>
+                    <th>
+                        Авторы
                     </th>
                     <th></th>
                 </tr>
@@ -52,7 +68,7 @@ const ProjectList = ({projects, users, delete_project}) => {
                 <tbody>
                 {filtered_projects.map((project) => <ProjectItem key={project.id}
                                                                  project={project}
-                                                                 all_users={users}
+                                                                 allUsers={users}
                                                                  delete_project={delete_project}/>)}
                 </tbody>
             </Table>

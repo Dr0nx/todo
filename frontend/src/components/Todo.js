@@ -2,6 +2,11 @@ import Table from "react-bootstrap/Table";
 import React from "react";
 import {Button} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import { format } from 'date-fns'
+
+const formatDate = (date) => {
+    return format(new Date(date), 'dd.MM.yyyy HH:mm')
+}
 
 const TodoItem = ({todo, delete_todo}) => {
     return (
@@ -16,8 +21,10 @@ const TodoItem = ({todo, delete_todo}) => {
                 {todo.user}
             </td>
             <td>
-                {todo.createdAt}
+                {formatDate(todo.createdAt)}
             </td>
+            <td>
+                {formatDate(todo.updatedAt)}            </td>
             <td>
                 <input type="checkbox" checked={todo.isActive}  name='isActive' />
             </td>
@@ -49,6 +56,9 @@ const TodoList = ({todos, delete_todo}) => {
                     </th>
                     <th>
                         Создана
+                    </th>
+                    <th>
+                        Обновлена
                     </th>
                     <th>
                         Активна

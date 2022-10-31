@@ -45,7 +45,7 @@ class ProjectForm extends React.Component {
     }
 
     render() {
-        if(this.state.isAdded) {
+        if (this.state.isAdded) {
             return <Navigate replace to="/projects/"/>
         }
         return (
@@ -62,10 +62,13 @@ class ProjectForm extends React.Component {
                            value={this.state.link} onChange={(event) => this.handleChange(event)}/>
                 </div>
                 <div className="form-group mt-3">
-                    <label htmlFor="users">Автор</label>
-                    <select className="form-select" name="users"
-                            onChange={(event) => this.handleUsersChange(event)}>
-                        {this.props.users.map((user, index) => <option value={index + 1}>{user.username}</option>)}
+                    <label htmlFor="users">Авторы</label>
+                    <select name="users" multiple onChange={(event) => this.handleUsersChange(event)} className='form-control'>
+                        {this.props.users.map((item, index) =>
+                            <option
+                                key={index}
+                                value={item.id}>{item.username}
+                            </option>)}
                     </select>
                 </div>
                 <div className="mt-3">

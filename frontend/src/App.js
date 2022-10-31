@@ -30,13 +30,13 @@ class App extends React.Component {
     create_project(name, link, users) {
         const headers = this.get_headers()
         const data = {name: name, link: link, users: users}
-        axios.post('http://127.0.0.1:8000/api/projects/', data, {headers})
+        axios.post(`http://127.0.0.1:8000/api/projects/`, data, {headers})
             .then(response => {
                 this.load_data()
             })
             .catch(error => {
                 console.log(error)
-                alert('Ссылка на репозиторий некорректна')
+                alert('Ссылка на репозиторий некорректна или не указаны авторы')
                 this.setState({projects: []})
             })
     }
@@ -50,7 +50,7 @@ class App extends React.Component {
             })
             .catch(error => {
                 console.log(error)
-                alert('Ссылка на репозиторий некорректна')
+                alert('Ссылка на репозиторий некорректна или не указаны авторы')
                 this.setState({projects: []})
             })
     }
@@ -58,13 +58,13 @@ class App extends React.Component {
     create_todo(project, text, user, isActive) {
         const headers = this.get_headers()
         const data = {project: project, text: text, user: user, isActive: isActive}
-        axios.post('http://127.0.0.1:8000/api/todos/', data, {headers})
+        axios.post(`http://127.0.0.1:8000/api/todos/`, data, {headers})
             .then(response => {
                 this.load_data()
             })
             .catch(error => {
                 console.log(error)
-                alert('Все плохо (')
+                alert('Не указан текст заметки')
                 this.setState({todos: []})
             })
     }
@@ -102,8 +102,7 @@ class App extends React.Component {
             .catch(error => alert('Неверный логин или пароль'))
     }
 
-    set_token(token) {
-        console.log(token)
+    set_token(token, authorized_user) {
         const cookies = new Cookies()
         cookies.set('token', token)
         this.setState({'token': token}, () => this.load_data())

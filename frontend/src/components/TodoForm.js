@@ -51,18 +51,12 @@ class TodoForm extends React.Component {
 
                 <div className="form-group mt-3">
                     <label htmlFor="user">Автор заметки</label>
-                    <select name="user" className='form-control'
-                            // value={this.state.initialStatus}
-                            onChange={(event) => this.handleChange(event)}>
-                        {this.props.users.map((user, index) =>
-                            <option value={index + 1} key={index}>{user.username}</option>)}
-
-                        {/*{this.props.users.map((item, index) =>*/}
-                        {/*    <option*/}
-                        {/*        key={index}*/}
-                        {/*        value={item.id}>{item.username}*/}
-                        {/*    </option>)}*/}
-
+                    <select name="user" className='form-control' onChange={(event) => this.handleChange(event)}>
+                        {this.props.users.map((item, index) =>
+                            <option
+                                key={index}
+                                value={item.id}>{item.username}
+                            </option>)}
                     </select>
                 </div>
 
