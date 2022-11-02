@@ -24,6 +24,7 @@ class App extends React.Component {
             'projects': [],
             'todos': [],
             'token': '',
+            'authorized_user': '',
         }
     }
 
@@ -37,7 +38,6 @@ class App extends React.Component {
             .catch(error => {
                 console.log(error)
                 alert('Ссылка на репозиторий некорректна или не указаны авторы')
-                this.setState({projects: []})
             })
     }
 
@@ -51,7 +51,6 @@ class App extends React.Component {
             .catch(error => {
                 console.log(error)
                 alert('Ссылка на репозиторий некорректна или не указаны авторы')
-                this.setState({projects: []})
             })
     }
 
@@ -93,11 +92,17 @@ class App extends React.Component {
         })
     }
 
+    get_token_from_storage() {
+        const cookies = new Cookies()
+        const token = cookies.get('token')
+        this.setState({'token': token}, () => this.load_data())
+    }
+
     get_token(username, password) {
         const data = {username: username, password: password}
         axios.post('http://127.0.0.1:8000/api-token/', data)
             .then(response => {
-                this.set_token(response.data['token'])
+                this.set_token(response.data['token'], username)
             })
             .catch(error => alert('Неверный логин или пароль'))
     }
@@ -105,6 +110,8 @@ class App extends React.Component {
     set_token(token, authorized_user) {
         const cookies = new Cookies()
         cookies.set('token', token)
+        localStorage.setItem('authorized_user', authorized_user)
+        this.setState({'authorized_user': localStorage.getItem('authorized_user')})
         this.setState({'token': token}, () => this.load_data())
     }
 
@@ -114,9 +121,7 @@ class App extends React.Component {
 
     logout() {
         this.set_token('')
-        this.setState({'users': []}, () => this.load_data())
-        this.setState({'projects': []}, () => this.load_data())
-        this.setState({'todos': []}, () => this.load_data())
+        localStorage.setItem('authorized_user', '')
     }
 
     get_headers() {
@@ -127,12 +132,6 @@ class App extends React.Component {
             headers['Authorization'] = 'Token ' + this.state.token
         }
         return headers
-    }
-
-    get_token_from_storage() {
-        const cookies = new Cookies()
-        const token = cookies.get('token')
-        this.setState({'token': token}, () => this.load_data())
     }
 
     load_data() {
@@ -168,64 +167,89 @@ class App extends React.Component {
 
     componentDidMount() {
         this.get_token_from_storage()
+        this.setState({'authorized_user': localStorage.getItem('authorized_user')})
     }
 
     render() {
-        return (
-            <Container className="p-2">
-                <Container className="p-5 mb-4 bg-light rounded-3">
-                    <BrowserRouter>
-                        {/*<Menu /> */}
-                        <Navbar bg="dark" variant="dark">
-                            <Container>
-                                <ReactLogo width="30" height="30"/>
-                                <Nav className="me-auto">
-                                    <Nav.Link as={Link} to="/">Пользователи</Nav.Link>
-                                    <Nav.Link as={Link} to="/projects">Проекты</Nav.Link>
-                                    <Nav.Link as={Link} to="/todos">Todo</Nav.Link>
-                                    {/*<Nav.Link as={Link} to="/login">Вход</Nav.Link>*/}
-                                    {this.is_auth() ?
-                                        <Nav.Link onClick={() => this.logout()}>Выход</Nav.Link> :
-                                        <Nav.Link as={Link} to="/login">Вход</Nav.Link>}
-                                </Nav>
-                            </Container>
-                        </Navbar>
-                        <Routes>
-                            <Route exact path='/' element={<UserList users={this.state.users}/>}/>
-                            <Route exact path='/projects'
-                                   element={<ProjectList projects={this.state.projects}
-                                                         users={this.state.users}
-                                                         delete_project={(id) => this.delete_project(id)}/>}/>
-                            <Route path='/projects/create' element={
-                                <ProjectForm users={this.state.users}
-                                             create_project={(name, link, users) =>
-                                                 this.create_project(name, link, users)}/>}/>
-                            <Route path='/projects/update' element={
-                                <UpdateProjectForm users={this.state.users}
-                                                   projects={this.state.projects}
-                                                   update_project={(id, name, link, users) =>
-                                                       this.update_project(id, name, link, users)}/>}/>
-                            <Route path='/projects/:id' element={
-                                <ProjectTodosList todos={this.state.todos}/>}/>
+        if (this.is_auth()) {
+            return (
+                <Container className="d-flex flex-column min-vh-100">
+                    <Container className="p-5 mb-4 bg-light rounded-3">
+                        <BrowserRouter>
+                            <Navbar bg="dark" variant="dark">
+                                <Container>
+                                    <ReactLogo width="30" height="30"/>
+                                    <Nav className="me-auto">
+                                        <Nav.Link as={Link} to="/">Пользователи</Nav.Link>
+                                        <Nav.Link as={Link} to="/projects">Проекты</Nav.Link>
+                                        <Nav.Link as={Link} to="/todos">Todo</Nav.Link>
+                                        {this.is_auth() ?
+                                            <Nav.Link
+                                                onClick={() => this.logout()}>[{this.state.authorized_user}]</Nav.Link> :
+                                            <Nav.Link as={Link} to="/"></Nav.Link>}
+                                    </Nav>
+                                </Container>
+                            </Navbar>
+                            <Routes>
+                                <Route exact path='/' element={<UserList users={this.state.users}/>}/>
+                                <Route exact path='/users' element={<UserList users={this.state.users}/>}/>
+                                <Route exact path='/projects'
+                                       element={<ProjectList projects={this.state.projects}
+                                                             users={this.state.users}
+                                                             delete_project={(id) => this.delete_project(id)}/>}/>
+                                <Route path='/projects/create' element={
+                                    <ProjectForm users={this.state.users}
+                                                 create_project={(name, link, users) =>
+                                                     this.create_project(name, link, users)}/>}/>
+                                <Route path='/projects/update' element={
+                                    <UpdateProjectForm users={this.state.users}
+                                                       projects={this.state.projects}
+                                                       update_project={(id, name, link, users) =>
+                                                           this.update_project(id, name, link, users)}/>}/>
+                                <Route path='/projects/:id' element={
+                                    <ProjectTodosList todos={this.state.todos}/>}/>
 
-                            <Route exact path='/todos'
-                                   element={<TodoList todos={this.state.todos}
-                                                      delete_todo={(id) => this.delete_todo(id)}/>}/>
-                            <Route exact path='/todos/create' element={
-                                <TodoForm projects={(this.state.projects)}
-                                          users={this.state.users}
-                                          create_todo={(project, text, user, isActive) => this.create_todo(project, text, user, isActive)}/>}/>
-                            <Route exact path='/users' element={<UserList users={this.state.users}/>}/>
-                            <Route exact path='/login' element={
-                                <LoginForm get_token={(username, password) => this.get_token(username, password)
-                                }/>}/>
-                            <Route path='*' element={<NotFound404/>}/>
-                        </Routes>
-                        <Footer/>
-                    </BrowserRouter>
+                                <Route exact path='/todos'
+                                       element={<TodoList todos={this.state.todos}
+                                                          delete_todo={(id) => this.delete_todo(id)}/>}/>
+                                <Route exact path='/todos/create' element={
+                                    <TodoForm projects={(this.state.projects)}
+                                              users={this.state.users}
+                                              create_todo={(project, text, user, isActive) => this.create_todo(project, text, user, isActive)}/>}/>
+                                <Route exact path='/login' element={
+                                    <LoginForm get_token={(username, password) => this.get_token(username, password)
+                                    }/>}/>
+                                <Route path='*' element={<NotFound404/>}/>
+                            </Routes>
+                            <Footer/>
+                        </BrowserRouter>
+                    </Container>
+                </Container>)
+        } else {
+            return (
+                <Container className="d-flex flex-column min-vh-100">
+                    <Container className="p-5 mb-4 bg-light rounded-3">
+                        <BrowserRouter>
+                            <Navbar bg="dark" variant="dark">
+                                <Container>
+                                    <ReactLogo width="30" height="30"/>
+                                </Container>
+                            </Navbar>
+                            <Routes>
+                                <Route path="/" element={<Navigate replace to="/login/"/>}/>
+                                <Route path="/users/" element={<Navigate replace to="/login/"/>}/>
+                                <Route path="/projects/" element={<Navigate replace to="/login/"/>}/>
+                                <Route path="/todos/" element={<Navigate replace to="/login/"/>}/>
+                                <Route path="/login/" element={
+                                    <LoginForm get_token={(username, password) => this.get_token(username, password)
+                                    }/>}/>
+                                <Route path="*" element={<NotFound404/>}/>
+                            </Routes>
+                        </BrowserRouter>
+                    </Container>
                 </Container>
-            </Container>
-        )
+            )
+        }
     }
 }
 

@@ -6,7 +6,7 @@ class UpdateProjectForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            id: '',
+            id: 1,
             name: '',
             link: '',
             users: [],
@@ -50,6 +50,7 @@ class UpdateProjectForm extends React.Component {
         }
         return (
             <form onSubmit={(event) => this.handleSubmit(event)}>
+
                 <div className="form-group mt-3">
                     <label htmlFor="id">ID проекта</label><br></br>
                     <select className="form-control disabled" name="id"
@@ -60,17 +61,20 @@ class UpdateProjectForm extends React.Component {
                             </option>)}
                     </select>
                 </div>
+
                 <div className="form-group mt-3">
                     <label htmlFor="name">Проект</label>
                     <input type="text" name="name" placeholder="Имя проекта" className="form-control"
                            value={this.state.name} onChange={(event) => this.handleChange(event)}/>
                 </div>
+
                 <div className="form-group mt-3">
                     <label htmlFor="link">Ссылка на репозиторий</label>
                     <input type="text" name="link" placeholder="http://127.0.0.1:8000/api/projects/"
                            className="form-control"
                            value={this.state.link} onChange={(event) => this.handleChange(event)}/>
                 </div>
+
                 <div className="form-group mt-3">
                     <label htmlFor="users">Авторы проекта</label>
                     <select name="users" multiple onChange={(event) => this.handleUsersChange(event)}
@@ -82,9 +86,11 @@ class UpdateProjectForm extends React.Component {
                             </option>)}
                     </select>
                 </div>
+
                 <div className="mt-3">
                     <input type="submit" className="btn btn-primary" value="Сохранить"/>
                 </div>
+
             </form>
         );
     }

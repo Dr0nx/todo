@@ -14,13 +14,12 @@ const ProjectItem = ({project, allUsers, delete_project}) => {
                 <Link to={`${project.id}`}>{project.name}</Link>
             </td>
             <td>
-                {project.link}
+                <Link to={`${project.id}`}>{project.link}</Link>
             </td>
             <td>
                 {project.users.map((userId) => {
-                    console.log(allUsers)
                     let user = allUsers.find(user => user.id === userId)
-                    return user.username + " "
+                    return user.username + ' '
                 })}
             </td>
             <td>
