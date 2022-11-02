@@ -53,7 +53,7 @@ const TodoList = ({todos, delete_todo}) => {
                         Текст заметки
                     </th>
                     <th>
-                        Автор заметки
+                        ID автора заметки
                     </th>
                     <th>
                         Создана

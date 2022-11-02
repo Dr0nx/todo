@@ -171,7 +171,7 @@ class App extends React.Component {
     }
 
     render() {
-        if (this.is_auth()) {
+        if (this.is_auth() && this.state.authorized_user) {
             return (
                 <Container className="d-flex flex-column min-vh-100">
                     <Container className="p-5 mb-4 bg-light rounded-3">
