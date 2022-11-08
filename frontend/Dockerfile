@@ -1,4 +1,3 @@
-FROM node:fermium-alpine3.16
-WORKDIR /frontend
-COPY . .
-RUN npm run build
+FROM nginx:alpine
+COPY ./build /var/www
+COPY nginx.conf /etc/nginx/nginx.conf

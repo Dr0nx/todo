@@ -1,27 +1,44 @@
-version: '3'
-
+version: '3.1'
 services:
+  db:
+    image: postgres:latest
+    privileged: true
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: drf
+      POSTGRES_PASSWORD: 1q2w3e
+      POSTGRES_DB: todo
+#  adminer:
+#    image: adminer:latest
+#    restart: always
+#    ports:
+#      - 8080:8080
+#    depends_on:
+#      - db
   backend:
     build:
-      context: ./backend
-    command: gunicorn todo.wsgi --bind 0.0.0.0:8000
-    ports:
-      - "8000:8000"
-  frontend:
-    build:
-      context: ./frontend
-    volumes:
-      - react_build:/frontend/build
+      context: backend
+    expose:
+      - 8080
+    command: bash -c "
+      ./wait-for-postgres.sh db
+      && python manage.py makemigrations
+      && python manage.py migrate
+      && python manage.py fill_db
+      && gunicorn todo.wsgi -b 0.0.0.0:8080
+      "
+    depends_on:
+      - db
   nginx:
-    image: nginx:latest
+    build: ./nginx
     ports:
-      - "80:8080"
-    volumes:
-      - ./nginx/nginx-setup.conf:/etc/nginx/conf.d/default.conf:rw
-      - react_build:/srv/http/drf/frontend
+      - 8000:80
     depends_on:
       - backend
-      - frontend
-
-volumes:
-  react_build:
+  frontend:
+    build: ./frontend
+    ports:
+      - 80:80
+    depends_on:
+      - nginx
