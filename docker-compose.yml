@@ -26,6 +26,8 @@ services:
       && python manage.py makemigrations
       && python manage.py migrate
       && python manage.py fill_db
+      && python manage.py loaddata backend/todoapp/fixtures/projects.json
+      && python manage.py loaddata backend/todoapp/fixtures/todos.json
       && gunicorn todo.wsgi -b 0.0.0.0:8080
       "
     depends_on:
