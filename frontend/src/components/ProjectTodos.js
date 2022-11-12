@@ -1,6 +1,11 @@
 import {useParams} from "react-router-dom";
 import Table from "react-bootstrap/Table";
 import React from "react";
+import {format} from 'date-fns'
+
+const formatDate = (date) => {
+    return format(new Date(date), 'dd.MM.yyyy HH:mm')
+}
 
 const TodoItem = ({todo}) => {
     return (
@@ -15,7 +20,10 @@ const TodoItem = ({todo}) => {
                 {todo.user}
             </td>
             <td>
-                {todo.createdAt}
+                {formatDate(todo.createdAt)}
+            </td>
+            <td>
+                {formatDate(todo.updatedAt)}
             </td>
         </tr>
     )
@@ -38,7 +46,10 @@ const ProjectTodosList = ({todos}) => {
                         Автор заметки
                     </th>
                     <th>
-                        Создано
+                        Создана
+                    </th>
+                    <th>
+                        Обновлена
                     </th>
                 </tr>
             </thead>

@@ -9,7 +9,7 @@ class ProjectForm extends React.Component {
             name: '',
             link: '',
             users: [],
-            isAdded: false
+            isAdded: false,
         }
     }
 

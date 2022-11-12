@@ -14,7 +14,7 @@ const ProjectItem = ({project, allUsers, delete_project}) => {
                 <Link to={`${project.id}`}>{project.name}</Link>
             </td>
             <td>
-                <Link to={`${project.id}`}>{project.link}</Link>
+                {project.link}
             </td>
             <td>
                 {project.users.map((userId) => {
@@ -73,10 +73,10 @@ const ProjectList = ({projects, users, delete_project}) => {
             </Table>
             <div className="row">
                 <div>
-                    <Link to='/projects/create'>Создать</Link>
+                    <Link to='/projects/create'>Создать заметку</Link>
                 </div>
                 <div>
-                    <Link to='/projects/update'>Обновить</Link>
+                    <Link to='/projects/update'>Обновить заметку</Link>
                 </div>
             </div>
         </div>

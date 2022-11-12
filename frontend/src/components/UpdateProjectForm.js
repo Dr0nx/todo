@@ -6,10 +6,10 @@ class UpdateProjectForm extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            id: 1,
+            id: props.projects[0]?.id,
             name: '',
             link: '',
-            users: [],
+            users: props.users[0]?.id,
             is_added: false
         }
     }
@@ -45,7 +45,7 @@ class UpdateProjectForm extends React.Component {
     }
 
     render() {
-        if(this.state.isAdded) {
+        if (this.state.isAdded) {
             return <Navigate replace to="/projects"/>
         }
         return (

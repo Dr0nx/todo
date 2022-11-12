@@ -81,17 +81,21 @@ WSGI_APPLICATION = 'todo.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'db.sqlite3',
-    # }
+
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'todo',
-        'USER': 'drf',
-        'PASSWORD': '1q2w3e',
-        'HOST': 'db',
-        'PORT': '5432', }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'todo',
+    #     'USER': 'drf',
+    #     'PASSWORD': '1q2w3e',
+    #     'HOST': 'db',
+    #     'PORT': '5432',
+    # }
+
 }
 
 # Password validation
@@ -139,12 +143,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'userapp.CustomUser'
 
 CORS_ALLOWED_ORIGINS = [
-    # 'http://localhost:3000',
-    # 'http://127.0.0.1:3000',
-    # 'http://127.0.0.1:8000',
-    # 'http://192.168.0.3:3000',
-    'http://192.168.0.2:8000',
-    'http://192.168.0.2',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'http://127.0.0.1:8000',
+    'http://127.0.0.1',
 ]
 
 REST_FRAMEWORK = {
