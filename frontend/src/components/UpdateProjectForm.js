@@ -70,7 +70,7 @@ class UpdateProjectForm extends React.Component {
 
                 <div className="form-group mt-3">
                     <label htmlFor="link">Ссылка на репозиторий</label>
-                    <input type="text" name="link" placeholder="http://127.0.0.1:8000/api/projects/"
+                    <input type="text" name="link" placeholder="http://drf.dr0n.ru/projects/"
                            className="form-control"
                            value={this.state.link} onChange={(event) => this.handleChange(event)}/>
                 </div>
