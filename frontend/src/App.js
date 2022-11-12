@@ -31,7 +31,7 @@ class App extends React.Component {
     create_project(name, link, users) {
         const headers = this.get_headers()
         const data = {name: name, link: link, users: users}
-        axios.post(`http://127.0.0.1:8000/api/projects/`, data, {headers})
+        axios.post('http://127.0.0.1:8000/api/projects/', data, {headers})
             .then(response => {
                 this.load_data()
             })
@@ -57,7 +57,7 @@ class App extends React.Component {
     create_todo(project, text, user, isActive) {
         const headers = this.get_headers()
         const data = {project: project, text: text, user: user, isActive: isActive}
-        axios.post(`http://127.0.0.1:8000/api/todos/`, data, {headers})
+        axios.post('http://127.0.0.1:8000/api/todos/', data, {headers})
             .then(response => {
                 this.load_data()
             })
