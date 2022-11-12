@@ -10,7 +10,7 @@ class UpdateProjectForm extends React.Component {
             name: '',
             link: '',
             users: props.users[0]?.id,
-            is_added: false
+            isAdded: false,
         }
     }
 

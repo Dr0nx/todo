@@ -182,10 +182,7 @@ class App extends React.Component {
                                         <Nav.Link as={Link} to="/">Пользователи</Nav.Link>
                                         <Nav.Link as={Link} to="/projects">Проекты</Nav.Link>
                                         <Nav.Link as={Link} to="/todos">Todo</Nav.Link>
-                                        {this.is_auth() ?
-                                            <Nav.Link
-                                                onClick={() => this.logout()}>[{this.state.authorized_user}]</Nav.Link> :
-                                            <Nav.Link as={Link} to="/"></Nav.Link>}
+                                        <Nav.Link onClick={() => this.logout()}>[{this.state.authorized_user}]</Nav.Link>
                                     </Nav>
                                 </Container>
                             </Navbar>
@@ -215,9 +212,7 @@ class App extends React.Component {
                                               users={this.state.users}
                                               create_todo={(project, text, user, isActive) =>
                                                   this.create_todo(project, text, user, isActive)}/>}/>
-                                <Route exact path='/login' element={
-                                    <LoginForm get_token={(username, password) => this.get_token(username, password)
-                                    }/>}/>
+                                <Route path="/login/" element={<Navigate replace to="/projects"/>}/>}/>
                                 <Route path='*' element={<NotFound404/>}/>
                             </Routes>
                             <Footer/>

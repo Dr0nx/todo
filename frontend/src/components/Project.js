@@ -73,10 +73,10 @@ const ProjectList = ({projects, users, delete_project}) => {
             </Table>
             <div className="row">
                 <div>
-                    <Link to='/projects/create'>Создать заметку</Link>
+                    <Link to='/projects/create'>Создать проект</Link>
                 </div>
                 <div>
-                    <Link to='/projects/update'>Обновить заметку</Link>
+                    <Link to='/projects/update'>Обновить проект</Link>
                 </div>
             </div>
         </div>
