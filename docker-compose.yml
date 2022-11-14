@@ -9,13 +9,13 @@ services:
       POSTGRES_USER: drf
       POSTGRES_PASSWORD: 1q2w3e
       POSTGRES_DB: todo
-  #  adminer:
-  #    image: adminer:latest
-  #    restart: always
-  #    ports:
-  #      - 8080:8080
-  #    depends_on:
-  #      - db
+#  adminer:
+#    image: adminer:latest
+#    restart: always
+#    ports:
+#      - 8081:8081
+#    depends_on:
+#      - db
   backend:
     build:
       context: backend
