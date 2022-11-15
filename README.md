@@ -14,4 +14,10 @@
 [Урок 11. Работа с формами. Сборка проекта для production](https://github.com/Dr0nx/todo/tree/lesson_11/) <br>
 [Урок 12. Развертывание проекта с Docker и docker-compose](https://github.com/Dr0nx/todo/tree/lesson_12/) <br>
 
+Проект работает под управлением Archlinux, в которм запущены docker контейнеры:
+todo_frontend_1 – react + node.js
+todo_nginx_1 – nginx
+todo_backend_1 – django
+todo_db_1 – postgres
+
 Окончательный вариант проекта предоставлен по адресу [http://drf.dr0n.ru](http://drf.dr0n.ru)
