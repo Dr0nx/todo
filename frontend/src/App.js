@@ -31,7 +31,7 @@ class App extends React.Component {
     create_project(name, link, users) {
         const headers = this.get_headers()
         const data = {name: name, link: link, users: users}
-        axios.post(`http://127.0.0.1:8000/api/projects/`, data, {headers})
+        axios.post('http://194.226.121.89:8000/api/projects/', data, {headers})
             .then(response => {
                 this.load_data()
             })
@@ -44,7 +44,7 @@ class App extends React.Component {
     update_project(id, name, link, users) {
         const headers = this.get_headers()
         const data = {id: id, name: name, link: link, users: users}
-        axios.put(`http://127.0.0.1:8000/api/projects/${id}/`, data, {headers})
+        axios.put(`http://194.226.121.89:8000/api/projects/${id}/`, data, {headers})
             .then(response => {
                 this.load_data()
             })
@@ -57,7 +57,7 @@ class App extends React.Component {
     create_todo(project, text, user, isActive) {
         const headers = this.get_headers()
         const data = {project: project, text: text, user: user, isActive: isActive}
-        axios.post(`http://127.0.0.1:8000/api/todos/`, data, {headers})
+        axios.post('http://194.226.121.89:8000/api/todos/', data, {headers})
             .then(response => {
                 this.load_data()
             })
@@ -70,7 +70,7 @@ class App extends React.Component {
 
     delete_project(id) {
         const headers = this.get_headers()
-        axios.delete(`http://127.0.0.1:8000/api/projects/${id}`, {headers})
+        axios.delete(`http://194.226.121.89:8000/api/projects/${id}`, {headers})
             .then(response => {
                     this.load_data()
                 }
@@ -82,10 +82,9 @@ class App extends React.Component {
 
     delete_todo(id) {
         const headers = this.get_headers()
-        axios.delete(`http://127.0.0.1:8000/api/todos/${id}`, {headers})
+        axios.delete(`http://194.226.121.89:8000/api/todos/${id}`, {headers})
             .then(response => {
                     this.load_data()
-                    console.log(response)
                 }
             ).catch(error => {
             this.setState({todos: []})
@@ -100,7 +99,7 @@ class App extends React.Component {
 
     get_token(username, password) {
         const data = {username: username, password: password}
-        axios.post('http://127.0.0.1:8000/api-token/', data)
+        axios.post('http://194.226.121.89:8000/api-token/', data)
             .then(response => {
                 this.set_token(response.data['token'], username)
             })
@@ -136,7 +135,7 @@ class App extends React.Component {
 
     load_data() {
         const headers = this.get_headers()
-        axios.get('http://127.0.0.1:8000/api/users', {headers})
+        axios.get('http://194.226.121.89:8000/api/users', {headers})
             .then(response => {
                 const users = response.data
                 this.setState(
@@ -145,7 +144,7 @@ class App extends React.Component {
                     }
                 )
             }).catch(error => console.log(error))
-        axios.get('http://127.0.0.1:8000/api/projects', {headers})
+        axios.get('http://194.226.121.89:8000/api/projects', {headers})
             .then(response => {
                 const projects = response.data
                 this.setState(
@@ -154,7 +153,7 @@ class App extends React.Component {
                     }
                 )
             }).catch(error => console.log(error))
-        axios.get('http://127.0.0.1:8000/api/todos', {headers})
+        axios.get('http://194.226.121.89:8000/api/todos', {headers})
             .then(response => {
                 const todos = response.data
                 this.setState(
@@ -183,10 +182,7 @@ class App extends React.Component {
                                         <Nav.Link as={Link} to="/">Пользователи</Nav.Link>
                                         <Nav.Link as={Link} to="/projects">Проекты</Nav.Link>
                                         <Nav.Link as={Link} to="/todos">Todo</Nav.Link>
-                                        {this.is_auth() ?
-                                            <Nav.Link
-                                                onClick={() => this.logout()}>[{this.state.authorized_user}]</Nav.Link> :
-                                            <Nav.Link as={Link} to="/"></Nav.Link>}
+                                        <Nav.Link onClick={() => this.logout()}>[{this.state.authorized_user}]</Nav.Link>
                                     </Nav>
                                 </Container>
                             </Navbar>
@@ -201,24 +197,22 @@ class App extends React.Component {
                                     <ProjectForm users={this.state.users}
                                                  create_project={(name, link, users) =>
                                                      this.create_project(name, link, users)}/>}/>
+                                <Route path='/projects/:id' element={
+                                    <ProjectTodosList todos={this.state.todos}/>}/>
                                 <Route path='/projects/update' element={
                                     <UpdateProjectForm users={this.state.users}
                                                        projects={this.state.projects}
                                                        update_project={(id, name, link, users) =>
                                                            this.update_project(id, name, link, users)}/>}/>
-                                <Route path='/projects/:id' element={
-                                    <ProjectTodosList todos={this.state.todos}/>}/>
-
                                 <Route exact path='/todos'
                                        element={<TodoList todos={this.state.todos}
                                                           delete_todo={(id) => this.delete_todo(id)}/>}/>
                                 <Route exact path='/todos/create' element={
                                     <TodoForm projects={(this.state.projects)}
                                               users={this.state.users}
-                                              create_todo={(project, text, user, isActive) => this.create_todo(project, text, user, isActive)}/>}/>
-                                <Route exact path='/login' element={
-                                    <LoginForm get_token={(username, password) => this.get_token(username, password)
-                                    }/>}/>
+                                              create_todo={(project, text, user, isActive) =>
+                                                  this.create_todo(project, text, user, isActive)}/>}/>
+                                <Route path="/login/" element={<Navigate replace to="/projects"/>}/>}/>
                                 <Route path='*' element={<NotFound404/>}/>
                             </Routes>
                             <Footer/>

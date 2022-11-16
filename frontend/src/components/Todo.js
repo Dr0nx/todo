@@ -75,7 +75,7 @@ const TodoList = ({todos, delete_todo}) => {
             </Table>
             <div className="row">
                 <div>
-                    <Link to='/todos/create'>Создать</Link>
+                    <Link to='/todos/create'>Создать заметку</Link>
                 </div>
             </div>
         </div>
