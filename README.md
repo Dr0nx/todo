@@ -21,4 +21,4 @@ todo_nginx_1 – nginx
 todo_backend_1 – django  
 todo_db_1 – postgres  
 
-Окончательный вариант проекта предоставлен по адресу [http://drf.dr0n.ru](http://drf.dr0n.ru)
+Окончательный вариант проекта предоставлен по адресу [http://drf.dr0n.ru](http://todo.dr0n.ru)
